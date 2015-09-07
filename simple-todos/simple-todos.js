@@ -30,7 +30,9 @@ Template.body.events({
       // Insert a task into the collection
       Tasks.insert({
         text: text,
-        createdAt: new Date() // current time
+        createdAt: new Date(), // current time
+        owner: Meteor.userId(),
+        username: Meteor.user().username
       });
 
       // Clear form
@@ -52,5 +54,9 @@ Template.body.events({
     "click .delete": function () {
       Tasks.remove(this._id);
     }
+  });
+
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
   });
 }
